@@ -7,6 +7,7 @@ export class PrismaService extends PrismaClient implements OnModuleInit {
     await this.$connect();
   }
 
+  // Fecha conexão com banco
   // async enableShutdownHooks(app: any) {
   //   this.$on('beforeExit', async () => {
   //     await app.close();

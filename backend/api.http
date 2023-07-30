@@ -35,3 +35,31 @@ Content-Type: application/json
   "asset_id": "asset1",
   "shares": 10
 }
+
+###
+POST http://localhost:3000/orders
+Content-Type: application/json
+
+{
+  "asset_id": "asset1",
+  "wallet_id": "wallet1",
+  "shares": 5,
+  "price": 100,
+  "type": "BUY"
+}
+
+###
+GET http://localhost:3000/wallets/wallet1/orders
+
+###
+POST http://localhost:3000/orders/execute
+Content-Type: application/json
+
+{
+  "order_id": "",
+  "status": "OPEN",
+  "related_investor_id": "xxxx",
+  "broker_transaction_id": "xxxx",
+  "negotiated_shares": 5,
+  "price": 10
+}

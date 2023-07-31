@@ -37,6 +37,7 @@ export class OrdersService {
         price: input.price,
         type: input.type,
         status: OrderStatus.PENDING,
+        version: 1
       }
     })
   }
@@ -48,18 +49,19 @@ export class OrdersService {
         where: { id: input.order_id },
       })
       await prisma.order.update({
-        where: { id: input.order_id },
+        where: { id: input.order_id, version: order.version },
         data: {
-          partial: order.partial - input.negociated_shares,
+          partial: order.partial - input.negotiated_shares,
           status: input.status,
           Transactions: {
             create: {
               broker_transaction_id: input.broker_transaction_id,
               related_investor_id: input.related_investor_id,
-              shares: input.negociated_shares,
+              shares: input.negotiated_shares,
               price: input.price
             }
-          }
+          },
+          version: { increment: 1 }
         }
       })
       if (input.status == OrderStatus.CLOSED) {
@@ -83,13 +85,15 @@ export class OrdersService {
               wallet_id_asset_id: {
                 asset_id: order.asset_id,
                 wallet_id: order.wallet_id
-              }
+              },
+              version: walletAsset.version
             },
             data: {
               shares:
                 order.type === OrderType.BUY
-                  ? walletAsset.shares + input.negociated_shares
-                  : walletAsset.shares - input.negociated_shares
+                  ? walletAsset.shares + order.shares
+                  : walletAsset.shares - order.shares,
+              version: { increment: 1 },
             }
           })
         } else {
@@ -97,7 +101,8 @@ export class OrdersService {
             data: {
               asset_id: order.asset_id,
               wallet_id: order.wallet_id,
-              shares: input.negociated_shares
+              shares: input.negotiated_shares,
+              version: 1
             }
           })
         }

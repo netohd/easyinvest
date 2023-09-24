@@ -1,5 +1,6 @@
 import { WalletAsset } from "../models"
 
+// Server Components (antes a página inteira era renderizada, agora em nível de comp.)
 async function getWalletAssets(wallet_id: string): Promise<WalletAsset[]> {
   const response = await fetch(`http://localhost:8000/wallets/${wallet_id}/assets`);
   return response.json();

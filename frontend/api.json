@@ -27,7 +27,7 @@
   ],
   "orders": [
     {
-      "id": "order1",
+      "id": "1",
       "wallet_id": "wallet1",
       "asset_id": "asset1",
       "shares": 1000,
@@ -43,7 +43,7 @@
       }
     },
     {
-      "id": "order2",
+      "id": "2",
       "wallet_id": "wallet1",
       "asset_id": "asset1",
       "shares": 500,
@@ -57,6 +57,19 @@
         "symbol": "asset1",
         "price": "100"
       }
+    },
+    {
+      "shares": "20",
+      "price": "2",
+      "asset_id": "asset1",
+      "type": "BUY",
+      "status": "OPEN",
+      "Asset": {
+        "id": "asset1",
+        "symbol": "PETR4",
+        "price": 30
+      },
+      "id": "yLS8Hvm"
     }
   ]
 }
